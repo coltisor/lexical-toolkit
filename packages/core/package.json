@@ -1,6 +1,6 @@
 {
   "name": "lexical-toolkit",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Your comprehensive toolset for effortless and flexible Lexical development, equipped with essential features.",
   "keywords": [
     "react",
@@ -13,6 +13,9 @@
   "license": "MIT",
   "main": "LexicalToolkit.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/coltisor/lexical-toolkit.git",
