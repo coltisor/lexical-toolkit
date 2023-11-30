@@ -30,15 +30,15 @@ const FONT_SIZE_OPTIONS: [string, string][] = [
   ["20px", "20px"],
 ];
 
-export const useFontFormatOptions = ({
-  editor,
-  value,
-  style,
-}: {
+type UseFontFormatOptionsParams = {
   editor: LexicalEditor;
   value: string;
   style: string;
-}) => {
+};
+
+export const useFontFormatOptions = (params: UseFontFormatOptionsParams) => {
+  const { editor, value, style } = params;
+
   const handleClick = useCallback(
     (option: string) => {
       editor.update(() => {

@@ -3,12 +3,12 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
 import { AUTOLINK_MATCHERS } from "./AutoLinkMatchers";
 
-type LexicalLinkPluginProps = {
+export type HyperlinkPluginProps = {
   validateUrl?: (url: string) => boolean;
   shouldAutoLink?: boolean;
 };
 
-export default function HyperlinkPlugin(props: LexicalLinkPluginProps) {
+export function HyperlinkPlugin(props: HyperlinkPluginProps) {
   const { validateUrl, shouldAutoLink = true } = props;
 
   return (

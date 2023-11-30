@@ -7,12 +7,20 @@ import { EditorState } from "lexical";
 let PREV_HTML: string | undefined;
 let PREV_TEXT: string | undefined;
 
-type OnChangeContentPlugin = {
-  onHtmlChange?: (newValue: string, editorState: EditorState) => void;
-  onTextChange?: (newValue: string, editorState: EditorState) => void;
+export type OnChangeContentPluginProps = {
+  onHtmlChange?: (
+    newHtml: string,
+    newPlainText: string,
+    editorState: EditorState
+  ) => void;
+  onTextChange?: (
+    newPlain: string,
+    newHtml: string,
+    editorState: EditorState
+  ) => void;
 };
 
-export default function OnChangeContentPlugin(props: OnChangeContentPlugin) {
+export function OnChangeContentPlugin(props: OnChangeContentPluginProps) {
   const { onHtmlChange, onTextChange } = props;
 
   const [editor] = useLexicalComposerContext();
@@ -25,12 +33,12 @@ export default function OnChangeContentPlugin(props: OnChangeContentPlugin) {
           const text = editor.getRootElement()?.textContent || "";
 
           if (html !== PREV_HTML) {
-            onHtmlChange && onHtmlChange(html, editorState);
+            onHtmlChange && onHtmlChange(html, text, editorState);
             PREV_HTML = html;
           }
 
           if (text !== PREV_TEXT) {
-            onTextChange && onTextChange(text, editorState);
+            onTextChange && onTextChange(text, text, editorState);
             PREV_TEXT = text;
           }
         });

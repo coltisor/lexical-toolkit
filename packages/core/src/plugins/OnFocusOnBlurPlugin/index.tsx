@@ -3,12 +3,12 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { BLUR_COMMAND, FOCUS_COMMAND, COMMAND_PRIORITY_LOW } from "lexical";
 import { mergeRegister } from "@lexical/utils";
 
-type OnFocusOnBlurPluginProps = {
+export type OnFocusOnBlurPluginProps = {
   onFocus?: () => void;
   onBlur?: () => void;
 };
 
-export default function OnFocusOnBlurPlugin(props: OnFocusOnBlurPluginProps) {
+export function OnFocusOnBlurPlugin(props: OnFocusOnBlurPluginProps) {
   const { onFocus, onBlur } = props;
 
   const [editor] = useLexicalComposerContext();

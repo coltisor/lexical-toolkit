@@ -83,20 +83,20 @@ function getCodeLanguageOptions(): [string, string][] {
 
 const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions();
 
-type LexicalToolbarProps = {
+export type UseLexicalToolbarParams = {
   editor: LexicalEditor;
   urlInitialValue?: string;
   isLinkEditMode: boolean;
   setIsLinkEditMode: Dispatch<boolean>;
 };
 
-export default function useLexicalToolbar(props: LexicalToolbarProps) {
+export function useLexicalToolbar(params: UseLexicalToolbarParams) {
   const {
     editor,
     isLinkEditMode,
     setIsLinkEditMode,
     urlInitialValue = "",
-  } = props;
+  } = params;
 
   const [activeEditor, setActiveEditor] = useState(editor);
 

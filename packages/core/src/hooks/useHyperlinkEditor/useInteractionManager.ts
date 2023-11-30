@@ -15,7 +15,7 @@ import {
 import { Dispatch, useCallback, useEffect, useState } from "react";
 import { getSelectedNode } from "../../utils/getSelectedNode";
 
-type UseInteractionManagerProps = {
+type UseInteractionManagerParams = {
   editor: LexicalEditor;
   isLink: boolean;
   setIsLink: Dispatch<boolean>;
@@ -24,9 +24,7 @@ type UseInteractionManagerProps = {
   setIsLinkEditMode: Dispatch<boolean>;
 };
 
-export default function useInteractionManager(
-  props: UseInteractionManagerProps
-) {
+export function useInteractionManager(params: UseInteractionManagerParams) {
   const {
     editor,
     isLink,
@@ -34,7 +32,7 @@ export default function useInteractionManager(
     setIsLink,
     isLinkEditMode,
     setIsLinkEditMode,
-  } = props;
+  } = params;
 
   const [linkUrl, setLinkUrl] = useState("");
   const [linkRect, setLinkRect] = useState<DOMRect | undefined>();

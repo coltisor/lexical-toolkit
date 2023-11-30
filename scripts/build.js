@@ -8,19 +8,18 @@ const packages = [
   {
     modules: [
       {
-        outputFileName: "LexicalToolkit",
         sourceFileName: "index.ts",
+        outputFileName: "LexicalToolkit",
       },
     ],
     name: "Lexical Toolkit Core",
-    outputPath: "./packages/core/dist/",
     packageName: "lexical-toolkit",
     sourcePath: "./packages/core/src/",
+    outputPath: "./packages/core/dist/",
   },
 ];
 
 function getFileName(fileName, isProduction) {
-  // Adjust this function to derive the file name based on your needs
   return isProduction ? `${fileName}.min.js` : `${fileName}.js`;
 }
 
@@ -28,7 +27,6 @@ function compile(fileNames, options, outputPath) {
   let program = ts.createProgram(fileNames, options);
   let emitResult = program.emit();
 
-  // Handling diagnostics
   let allDiagnostics = ts
     .getPreEmitDiagnostics(program)
     .concat(emitResult.diagnostics);
@@ -81,7 +79,6 @@ async function build(name, inputFile, outputPath, outputFile, isProduction) {
   console.log(`${name} built successfully.`);
 }
 
-// isProduction should be set based on your environment or build command
 const isProduction = process.env.NODE_ENV === "production";
 
 async function buildAll() {

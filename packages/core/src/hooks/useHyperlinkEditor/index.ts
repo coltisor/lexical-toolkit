@@ -11,9 +11,9 @@ import {
 } from "lexical";
 import { Dispatch, useEffect, useState } from "react";
 import { getSelectedNode } from "../../utils/getSelectedNode";
-import useInteractionManager from "./useInteractionManager";
+import { useInteractionManager } from "./useInteractionManager";
 
-type UseHyperlinkEditorProps = {
+export type UseHyperlinkEditorParams = {
   editor: LexicalEditor;
   anchorElem: HTMLElement;
   isLinkEditMode: boolean;
@@ -21,14 +21,14 @@ type UseHyperlinkEditorProps = {
   canEditAutoLinks?: boolean;
 };
 
-export default function useHyperlinkEditor(props: UseHyperlinkEditorProps) {
+export function useHyperlinkEditor(params: UseHyperlinkEditorParams) {
   const {
     editor,
     anchorElem,
     isLinkEditMode,
     setIsLinkEditMode,
     canEditAutoLinks = true,
-  } = props;
+  } = params;
 
   const [activeEditor, setActiveEditor] = useState(editor);
   const [isLink, setIsLink] = useState(false);

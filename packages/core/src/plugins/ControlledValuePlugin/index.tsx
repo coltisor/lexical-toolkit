@@ -1,15 +1,13 @@
 import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot, $insertNodes } from "lexical";
-import convertHtmlToNodes from "../../utils/convertHtmlToNodes";
+import { convertHtmlToNodes } from "../../utils/convertHtmlToNodes";
 
-type ControlledValuePluginProps = {
+export type ControlledValuePluginProps = {
   value: string;
 };
 
-export default function ControlledValuePlugin(
-  props: ControlledValuePluginProps
-) {
+export function ControlledValuePlugin(props: ControlledValuePluginProps) {
   const { value } = props;
 
   const [editor] = useLexicalComposerContext();

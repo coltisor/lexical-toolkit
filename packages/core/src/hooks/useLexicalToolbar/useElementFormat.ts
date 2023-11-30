@@ -45,13 +45,14 @@ const ELEMENT_FORMAT_OPTIONS: {
   },
 };
 
-export const useElementFormat = ({
-  editor,
-  value,
-}: {
+type UseElementFormatParams = {
   editor: LexicalEditor;
   value: ElementFormatType;
-}) => {
+};
+
+export const useElementFormat = (params: UseElementFormatParams) => {
+  const { editor, value } = params;
+
   const formatOption = ELEMENT_FORMAT_OPTIONS[value || "left"];
   return {
     label: formatOption.name,

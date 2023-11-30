@@ -9,12 +9,12 @@ function createRegexForPhrases(phrases: string[]): RegExp {
   return new RegExp(`(\b|^|$)(${regexPattern})(\b|^|$)`, "i");
 }
 
-type KeywordsPluginProps = {
+export type KeywordPluginProps = {
   regex?: RegExp;
   phrases?: string[];
 };
 
-export default function KeywordsPlugin(props: KeywordsPluginProps) {
+export function KeywordPlugin(props: KeywordPluginProps) {
   const { regex, phrases } = props;
 
   const [editor] = useLexicalComposerContext();

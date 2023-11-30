@@ -1,19 +1,45 @@
 // Hooks
-export { default as useLexicalToolbar } from "./hooks/useLexicalToolbar";
-export { default as useHyperlinkEditor } from "./hooks/useHyperlinkEditor";
+export {
+  useLexicalToolbar,
+  UseLexicalToolbarParams,
+} from "./hooks/useLexicalToolbar";
+export {
+  useHyperlinkEditor,
+  UseHyperlinkEditorParams,
+} from "./hooks/useHyperlinkEditor";
 
 // Nodes
-export { KeywordNode } from "./nodes/KeywordNode";
+export {
+  KeywordNode,
+  SerializedKeywordNode,
+  $createKeywordNode,
+  $isKeywordNode,
+} from "./nodes/KeywordNode";
 
 // Plugins
-export { default as ControlledValuePlugin } from "./plugins/ControlledValuePlugin";
-export { default as DefaultValuePlugin } from "./plugins/DefaultValuePlugin";
-export { default as HyperlinkPlugin } from "./plugins/HyperlinkPlugin";
-export { default as KeywordPlugin } from "./plugins/KeywordPlugin";
-export { default as OnChangeContentPlugin } from "./plugins/OnChangeContentPlugin";
-export { default as OnFocusOnBlurPlugin } from "./plugins/OnFocusOnBlurPlugin";
+export {
+  ControlledValuePlugin,
+  ControlledValuePluginProps,
+} from "./plugins/ControlledValuePlugin";
+export {
+  DefaultValuePlugin,
+  DefaultValuePluginProps,
+} from "./plugins/DefaultValuePlugin";
+export {
+  HyperlinkPlugin,
+  HyperlinkPluginProps,
+} from "./plugins/HyperlinkPlugin";
+export { KeywordPlugin, KeywordPluginProps } from "./plugins/KeywordPlugin";
+export {
+  OnChangeContentPlugin,
+  OnChangeContentPluginProps,
+} from "./plugins/OnChangeContentPlugin";
+export {
+  OnFocusOnBlurPlugin,
+  OnFocusOnBlurPluginProps,
+} from "./plugins/OnFocusOnBlurPlugin";
 
 // Utils
 export { getSelectedNode } from "./utils/getSelectedNode";
 export { sanitizeUrl, validateUrl } from "./utils/url";
-export { default as convertHtmlToNodes } from "./utils/convertHtmlToNodes";
+export { convertHtmlToNodes } from "./utils/convertHtmlToNodes";

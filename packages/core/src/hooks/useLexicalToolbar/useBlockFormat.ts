@@ -39,15 +39,16 @@ const rootTypeToRootName = {
   table: "Table",
 };
 
-export const useBlockFormat = ({
-  editor,
-  blockType,
-}: {
+type UseBlockFormatParams = {
   blockType: keyof typeof blockTypeToBlockName;
   rootType: keyof typeof rootTypeToRootName;
   editor: LexicalEditor;
   disabled?: boolean;
-}) => {
+};
+
+export const useBlockFormat = (params: UseBlockFormatParams) => {
+  const { blockType, editor } = params;
+
   const formatParagraph = () => {
     editor.update(() => {
       const selection = $getSelection();
