@@ -39,7 +39,8 @@ export {
   OnFocusOnBlurPluginProps,
 } from "./plugins/OnFocusOnBlurPlugin";
 
-// Utils
+// Utils`
 export { getSelectedNode } from "./utils/getSelectedNode";
 export { sanitizeUrl, validateUrl } from "./utils/url";
 export { convertHtmlToNodes } from "./utils/convertHtmlToNodes";
+export { getDOMRangeRect } from "./utils/getDOMRangeRect";

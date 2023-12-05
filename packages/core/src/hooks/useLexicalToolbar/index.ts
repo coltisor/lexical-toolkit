@@ -43,7 +43,7 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from "lexical";
-import { Dispatch, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useFontFormatOptions } from "./useFontFormatOptions";
 import { useElementFormat } from "./useElementFormat";
 import { useBlockFormat } from "./useBlockFormat";
@@ -86,17 +86,10 @@ const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions();
 export type UseLexicalToolbarParams = {
   editor: LexicalEditor;
   urlInitialValue?: string;
-  isLinkEditMode: boolean;
-  setIsLinkEditMode: Dispatch<boolean>;
 };
 
 export function useLexicalToolbar(params: UseLexicalToolbarParams) {
-  const {
-    editor,
-    isLinkEditMode,
-    setIsLinkEditMode,
-    urlInitialValue = "",
-  } = params;
+  const { editor, urlInitialValue = "" } = params;
 
   const [activeEditor, setActiveEditor] = useState(editor);
 
@@ -277,12 +270,6 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
         if (code === "KeyK" && (ctrlKey || metaKey)) {
           event.preventDefault();
 
-          if (!isLink) {
-            setIsLinkEditMode(true);
-          } else {
-            setIsLinkEditMode(false);
-          }
-
           return activeEditor.dispatchCommand(
             TOGGLE_LINK_COMMAND,
             urlInitialValue
@@ -292,7 +279,7 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
       },
       COMMAND_PRIORITY_NORMAL
     );
-  }, [activeEditor, isLink, setIsLinkEditMode]);
+  }, [activeEditor, isLink]);
 
   const applyStyleText = useCallback(
     (styles: Record<string, string>) => {
@@ -365,7 +352,6 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
 
   const insertLink = useCallback(() => {
     if (!isLink) {
-      setIsLinkEditMode(true);
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, urlInitialValue);
     } else {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
@@ -458,8 +444,6 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
       disabled: !isEditable,
       active: isLink,
       title: "Insert link",
-      isLinkEditMode: isLinkEditMode,
-      setIsLinkEditMode: setIsLinkEditMode,
       dispatch: () => insertLink(),
     },
     fontFamily: {

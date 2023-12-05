@@ -20,19 +20,10 @@ type UseInteractionManagerParams = {
   isLink: boolean;
   setIsLink: Dispatch<boolean>;
   anchorElem: HTMLElement;
-  isLinkEditMode: boolean;
-  setIsLinkEditMode: Dispatch<boolean>;
 };
 
 export function useInteractionManager(params: UseInteractionManagerParams) {
-  const {
-    editor,
-    isLink,
-    anchorElem,
-    setIsLink,
-    isLinkEditMode,
-    setIsLinkEditMode,
-  } = params;
+  const { editor, isLink, anchorElem, setIsLink } = params;
 
   const [linkUrl, setLinkUrl] = useState("");
   const [linkRect, setLinkRect] = useState<DOMRect | undefined>();
@@ -66,27 +57,22 @@ export function useInteractionManager(params: UseInteractionManagerParams) {
       rootElement.contains(nativeSelection.anchorNode) &&
       editor.isEditable()
     ) {
-      console.log("set to block");
       const domRect: DOMRect | undefined =
         nativeSelection.focusNode?.parentElement?.getBoundingClientRect();
-      console.log(domRect);
       if (domRect) {
         setLinkRect(domRect);
       }
       setLastSelection(selection);
     } else if (!activeElement) {
-      console.log("else no block");
       if (rootElement !== null) {
         setLinkRect(undefined);
-        console.log("set to undefined");
       }
       setLastSelection(null);
-      setIsLinkEditMode(false);
       setLinkUrl("");
     }
 
     return true;
-  }, [anchorElem, editor, setIsLinkEditMode]);
+  }, [anchorElem, editor]);
 
   useEffect(() => {
     const scrollerElem = anchorElem.parentElement;
@@ -152,12 +138,9 @@ export function useInteractionManager(params: UseInteractionManagerParams) {
     currentNodeIsLink: isLink,
     linkNodeRect: linkRect,
     linkUrl: linkUrl,
-    isLinkEditMode: isLinkEditMode,
-    setIsLinkEditMode: setIsLinkEditMode,
     dispatchLinkSubmission: ({ url }: { url: string }) => {
       if (lastSelection !== null) {
         editor.dispatchCommand(TOGGLE_LINK_COMMAND, url);
-        setIsLinkEditMode(false);
       }
     },
     dispatchLinkRemoval: () => {

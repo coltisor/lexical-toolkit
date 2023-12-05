@@ -9,26 +9,18 @@ import {
   LexicalEditor,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getSelectedNode } from "../../utils/getSelectedNode";
 import { useInteractionManager } from "./useInteractionManager";
 
 export type UseHyperlinkEditorParams = {
   editor: LexicalEditor;
   anchorElem: HTMLElement;
-  isLinkEditMode: boolean;
-  setIsLinkEditMode: Dispatch<boolean>;
   canEditAutoLinks?: boolean;
 };
 
 export function useHyperlinkEditor(params: UseHyperlinkEditorParams) {
-  const {
-    editor,
-    anchorElem,
-    isLinkEditMode,
-    setIsLinkEditMode,
-    canEditAutoLinks = true,
-  } = params;
+  const { editor, anchorElem, canEditAutoLinks = true } = params;
 
   const [activeEditor, setActiveEditor] = useState(editor);
   const [isLink, setIsLink] = useState(false);
@@ -88,7 +80,5 @@ export function useHyperlinkEditor(params: UseHyperlinkEditorParams) {
     isLink,
     anchorElem,
     setIsLink,
-    isLinkEditMode,
-    setIsLinkEditMode,
   });
 }
