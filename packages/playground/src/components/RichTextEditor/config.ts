@@ -5,8 +5,8 @@ import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { HashtagNode } from "@lexical/hashtag";
 import { InitialConfigType } from "@lexical/react/LexicalComposer";
-// import { LexicalTheme } from "./LexicalTheme/LexicalTheme";
-// import { KeywordNode } from "./LexicalToolkit/LexicalKeywordsPlugin/LexicalKeywordNode";
+import theme from "./theme";
+import { KeywordNode } from "lexical-toolkit";
 
 export const RTE_INITIAL_CONFIG: InitialConfigType = {
   namespace: "vanguard-rich-text-editor",
@@ -24,7 +24,7 @@ export const RTE_INITIAL_CONFIG: InitialConfigType = {
     TableRowNode,
     AutoLinkNode,
     LinkNode,
-    // KeywordNode,
+    KeywordNode,
   ],
-  // theme: LexicalTheme,
+  theme: theme,
 };

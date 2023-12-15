@@ -1,0 +1,106 @@
+/** List */
+
+.RTE_ol1 {
+  padding: 0;
+  margin: 0;
+  list-style-position: inside;
+}
+.RTE_ol2 {
+  padding: 0;
+  margin: 0;
+  list-style-type: upper-alpha;
+  list-style-position: inside;
+}
+.RTE_ol3 {
+  padding: 0;
+  margin: 0;
+  list-style-type: lower-alpha;
+  list-style-position: inside;
+}
+.RTE_ol4 {
+  padding: 0;
+  margin: 0;
+  list-style-type: upper-roman;
+  list-style-position: inside;
+}
+.RTE_ol5 {
+  padding: 0;
+  margin: 0;
+  list-style-type: lower-roman;
+  list-style-position: inside;
+}
+.RTE_ul {
+  padding: 0;
+  margin: 0;
+  list-style-position: inside;
+}
+.RTE_listItem {
+  margin: 0 32px;
+}
+.RTE_listItemChecked,
+.RTE_listItemUnchecked {
+  position: relative;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
+  list-style-type: none;
+  outline: none;
+}
+.RTE_listItemChecked {
+  text-decoration: line-through;
+}
+.RTE_listItemUnchecked:before,
+.RTE_listItemChecked:before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  top: 2px;
+  left: 0;
+  cursor: pointer;
+  display: block;
+  background-size: cover;
+  position: absolute;
+}
+.RTE_listItemUnchecked[dir="rtl"]:before,
+.RTE_listItemChecked[dir="rtl"]:before {
+  left: auto;
+  right: 0;
+}
+.RTE_listItemUnchecked:focus:before,
+.RTE_listItemChecked:focus:before {
+  box-shadow: 0 0 0 2px #a6cdfe;
+  border-radius: 2px;
+}
+.RTE_listItemUnchecked:before {
+  border: 1px solid #999;
+  border-radius: 2px;
+}
+.RTE_listItemChecked:before {
+  border: 1px solid rgb(61, 135, 245);
+  border-radius: 2px;
+  background-color: #3d87f5;
+  background-repeat: no-repeat;
+}
+.RTE_listItemChecked:after {
+  content: "";
+  cursor: pointer;
+  border-color: #fff;
+  border-style: solid;
+  position: absolute;
+  display: block;
+  top: 6px;
+  width: 3px;
+  left: 7px;
+  right: 7px;
+  height: 6px;
+  transform: rotate(45deg);
+  border-width: 0 2px 2px 0;
+}
+.RTE_nestedListItem {
+  list-style-type: none;
+}
+.RTE_nestedListItem:before,
+.RTE_nestedListItem:after {
+  display: none;
+}
