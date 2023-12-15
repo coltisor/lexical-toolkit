@@ -3,13 +3,11 @@ import { $findMatchingParent, mergeRegister } from "@lexical/utils";
 import {
   $getSelection,
   $isRangeSelection,
+  BaseSelection,
   COMMAND_PRIORITY_HIGH,
   COMMAND_PRIORITY_LOW,
-  GridSelection,
   KEY_ESCAPE_COMMAND,
   LexicalEditor,
-  NodeSelection,
-  RangeSelection,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { Dispatch, useCallback, useEffect, useState } from "react";
@@ -27,9 +25,9 @@ export function useInteractionManager(params: UseInteractionManagerParams) {
 
   const [linkUrl, setLinkUrl] = useState("");
   const [linkRect, setLinkRect] = useState<DOMRect | undefined>();
-  const [lastSelection, setLastSelection] = useState<
-    RangeSelection | GridSelection | NodeSelection | null
-  >(null);
+  const [lastSelection, setLastSelection] = useState<BaseSelection | null>(
+    null,
+  );
 
   const updateLinkEditor = useCallback(() => {
     const selection = $getSelection();
@@ -112,7 +110,7 @@ export function useInteractionManager(params: UseInteractionManagerParams) {
           updateLinkEditor();
           return true;
         },
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         KEY_ESCAPE_COMMAND,
@@ -123,8 +121,8 @@ export function useInteractionManager(params: UseInteractionManagerParams) {
           }
           return false;
         },
-        COMMAND_PRIORITY_HIGH
-      )
+        COMMAND_PRIORITY_HIGH,
+      ),
     );
   }, [editor, updateLinkEditor, setIsLink, isLink]);
 

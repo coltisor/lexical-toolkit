@@ -22,13 +22,13 @@
     "directory": "packages/core"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
-    "@types/react": "^18.2.39",
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.2.45",
     "react": "^18.2.0",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@lexical/react": "^0.12.4",
+    "@lexical/react": "^0.12.5",
     "lexical": "^0.12.4"
   }
 }
