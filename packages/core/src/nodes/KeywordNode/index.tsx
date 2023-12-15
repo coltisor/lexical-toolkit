@@ -38,7 +38,7 @@ export class KeywordNode extends TextNode {
     if (!keywordClass) {
       keywordClass = "lexical-toolkit-keyword";
       console.warn(
-        "Lexical Toolkit. KeywordNode: No keyword class found in theme, used 'lexical-toolkit-keyword' instead."
+        "Lexical Toolkit. KeywordNode: No keyword class found in theme, used 'lexical-toolkit-keyword' instead.",
       );
     }
 

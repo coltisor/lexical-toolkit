@@ -6,7 +6,7 @@ import { $createKeywordNode, KeywordNode } from "../../nodes/KeywordNode";
 
 function createRegexForPhrases(phrases: string[]): RegExp {
   const regexPattern = phrases.join("|");
-  return new RegExp(`(\b|^|$)(${regexPattern})(\b|^|$)`, "i");
+  return new RegExp(`(\\b|^|$)(${regexPattern})(\\b|^|$)`, "igu");
 }
 
 export type KeywordPluginProps = {
@@ -58,13 +58,13 @@ export function KeywordPlugin(props: KeywordPluginProps) {
 
       return null;
     },
-    [regex, phrases]
+    [regex, phrases],
   );
 
   useLexicalTextEntity<KeywordNode>(
     getKeywordMatch,
     KeywordNode,
-    createKeywordNode
+    createKeywordNode,
   );
 
   return null;
