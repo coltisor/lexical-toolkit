@@ -13,6 +13,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "build-playground": "npm run build --prefix packages/playground",
     "start-playground": "npm run dev --prefix packages/playground",
     "build-core": "tsc",
     "watch-core": "tsc -w"
