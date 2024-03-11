@@ -1,6 +1,6 @@
 # Lexical Toolkit
 
-Your comprehensive toolset for effortless and flexible Lexical development, equipped with essential features.
+Your comprehensive toolkit for effortless and flexible Lexical development, equipped with essential features.
 
 ## Features
 
