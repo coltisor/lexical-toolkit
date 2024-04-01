@@ -1,5 +1,7 @@
 import type { EditorThemeClasses } from "lexical";
 
+// @todo replace "RTE_*" classes with proper Tailwind CSS classes
+
 const theme: EditorThemeClasses = {
   blockCursor: "RTE_blockCursor",
   characterLimit: "RTE_characterLimit",
@@ -21,7 +23,7 @@ const theme: EditorThemeClasses = {
   inlineImage: "inline-editor-image",
   layoutContainer: "RTE_layoutContaner",
   layoutItem: "RTE_layoutItem",
-  link: "RTE_link",
+  link: "text-blue-500 no-underline antialiased hover:underline",
   list: {
     listitem: "RTE_listItem",
     listitemChecked: "RTE_listItemChecked",
