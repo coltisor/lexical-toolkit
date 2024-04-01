@@ -1,23 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { Dispatch } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useLexicalToolbar } from "lexical-toolkit";
-import { cs } from "@/helpers/classNames";
 import {
   FaAlignCenter,
   FaAlignLeft,
+  FaAlignRight,
   FaBold,
   FaItalic,
+  FaLink,
   FaListOl,
   FaListUl,
   FaParagraph,
   FaUnderline,
 } from "react-icons/fa";
+import { Button } from "@/components/Button";
 
-export const Toolbar = () => {
+type ToolbarProps = {
+  isLinkEditMode: boolean;
+  setIsLinkEditMode: Dispatch<boolean>;
+};
+
+export const Toolbar = (props: ToolbarProps) => {
+  const { setIsLinkEditMode } = props;
+
   const [editor] = useLexicalComposerContext();
-
   const toolbar = useLexicalToolbar({
     editor: editor,
   });
@@ -25,115 +33,139 @@ export const Toolbar = () => {
   return (
     <div className="flex w-full border-b border-gray-200 text-xl text-gray-600">
       <div className="flex w-full border-b border-gray-200 text-xl text-gray-600">
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.bold.active && "bg-gray-50",
-          )}
+        <Button
+          className="border-r"
           onClick={() => toolbar.bold.dispatch()}
+          active={toolbar.bold.active}
         >
-          <FaBold height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 italic outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.italic.active && "bg-gray-50",
-          )}
+          <FaBold height={10} width={10} title={toolbar.bold.title} />
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.italic.dispatch()}
+          active={toolbar.italic.active}
         >
-          <FaItalic height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 underline outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.underline.active && "bg-gray-50",
-          )}
+          <FaItalic height={10} width={10} title={toolbar.italic.title} />
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.underline.dispatch()}
+          active={toolbar.underline.active}
         >
-          <FaUnderline height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.blockFormatting.paragraph.active && "bg-gray-50",
-          )}
+          <FaUnderline height={10} width={10} title={toolbar.underline.title} />
+        </Button>
+        <Separator />
+        <Button
+          className="border-r"
           onClick={() => toolbar.blockFormatting.paragraph.dispatch()}
+          active={toolbar.blockFormatting.paragraph.active}
         >
-          <FaParagraph height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.blockFormatting.h1.active && "bg-gray-50",
-          )}
+          <FaParagraph
+            height={10}
+            width={10}
+            title={toolbar.blockFormatting.paragraph.title}
+          />
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.blockFormatting.h1.dispatch()}
+          active={toolbar.blockFormatting.h1.active}
         >
-          H<sub>1</sub>
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.blockFormatting.h2.active && "bg-gray-50",
-          )}
+          <span title={toolbar.blockFormatting.h1.title}>
+            H<sub>1</sub>
+          </span>
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.blockFormatting.h2.dispatch()}
+          active={toolbar.blockFormatting.h2.active}
         >
-          H<sub>2</sub>
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.blockFormatting.h3.active && "bg-gray-50",
-          )}
+          <span title={toolbar.blockFormatting.h2.title}>
+            H<sub>2</sub>
+          </span>
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.blockFormatting.h3.dispatch()}
+          active={toolbar.blockFormatting.h3.active}
         >
-          H<sub>3</sub>
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.blockFormatting.bulletList.active && "bg-gray-50",
-          )}
+          <span title={toolbar.blockFormatting.h3.title}>
+            H<sub>3</sub>
+          </span>
+        </Button>
+        <Separator />
+        <Button
+          className="border-r"
+          onClick={() => {
+            setIsLinkEditMode(true);
+            toolbar.link.dispatch();
+          }}
+          active={toolbar.link.active}
+        >
+          <FaLink height={10} width={10} title={toolbar.link.title} />
+        </Button>
+        <Separator />
+        <Button
+          className="border-r"
           onClick={() => toolbar.blockFormatting.bulletList.dispatch()}
+          active={toolbar.blockFormatting.bulletList.active}
         >
-          <FaListUl height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.blockFormatting.numberList.active && "bg-gray-50",
-          )}
+          <FaListUl
+            height={10}
+            width={10}
+            title={toolbar.blockFormatting.bulletList.title}
+          />
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.blockFormatting.numberList.dispatch()}
+          active={toolbar.blockFormatting.numberList.active}
         >
-          <FaListOl height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.elementFormatting.leftAlign.active && "bg-gray-50",
-          )}
+          <FaListOl
+            height={10}
+            width={10}
+            title={toolbar.blockFormatting.numberList.title}
+          />
+        </Button>
+        <Separator />
+        <Button
+          className="border-r"
           onClick={() => toolbar.elementFormatting.leftAlign.dispatch()}
+          active={toolbar.elementFormatting.leftAlign.active}
         >
-          <FaAlignLeft height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.elementFormatting.centerAlign.active && "bg-gray-50",
-          )}
+          <FaAlignLeft
+            height={10}
+            width={10}
+            title={toolbar.elementFormatting.leftAlign.title}
+          />
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.elementFormatting.centerAlign.dispatch()}
+          active={toolbar.elementFormatting.centerAlign.active}
         >
-          <FaAlignCenter height={10} width={10} />
-        </button>
-        <button
-          className={cs(
-            "active: flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
-            toolbar.elementFormatting.rightAlign.active && "bg-gray-50",
-          )}
+          <FaAlignCenter
+            height={10}
+            width={10}
+            title={toolbar.elementFormatting.centerAlign.title}
+          />
+        </Button>
+        <Button
+          className="border-r"
           onClick={() => toolbar.elementFormatting.rightAlign.dispatch()}
+          active={toolbar.elementFormatting.rightAlign.active}
         >
-          <FaAlignCenter height={10} width={10} />
-        </button>
+          <FaAlignRight
+            height={10}
+            width={10}
+            title={toolbar.elementFormatting.rightAlign.title}
+          />
+        </Button>
       </div>
     </div>
   );
+};
+
+const Separator = () => {
+  return <span className="mr-1 w-[8px] border-r border-gray-200" />;
 };
