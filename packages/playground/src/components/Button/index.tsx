@@ -11,7 +11,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       className={cs(
-        "flex h-10 w-10 items-center justify-center border-r border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
+        "flex h-10 w-10 items-center justify-center border-gray-200 outline-none hover:text-indigo-500 focus:outline-none",
         active && "text-indigo-600",
         className,
       )}

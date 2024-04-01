@@ -37,7 +37,9 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
 
           <div
             className="relative"
-            ref={(el) => !floatingAnchor && el && setFloatingAnchor(el)}
+            ref={(el) =>
+              (!floatingAnchor && el && setFloatingAnchor(el)) || undefined
+            }
           >
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary as any}
