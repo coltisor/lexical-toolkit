@@ -28,7 +28,7 @@
     "typescript": "^5.4.3"
   },
   "peerDependencies": {
-    "@lexical/react": "^0.12.5",
+    "@lexical/react": "^0.12.4",
     "lexical": "^0.12.4"
   }
 }
