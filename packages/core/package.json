@@ -27,8 +27,8 @@
     "react": "^18.2.0",
     "typescript": "^5.4.3"
   },
-  "dependencies": {
-    "@lexical/react": "^0.14.2",
-    "lexical": "^0.14.2"
+  "peerDependencies": {
+    "@lexical/react": "^0.12.5",
+    "lexical": "^0.12.4"
   }
 }
