@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -7,13 +7,14 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { RTE_INITIAL_CONFIG } from "./config";
 import { Toolbar } from "./Toolbar";
 import "./theme.css";
-import { KeywordPlugin } from "lexical-toolkit";
+import { HyperlinkPlugin, KeywordPlugin } from "lexical-toolkit";
 import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 import { HashtagPlugin } from "@lexical/react/LexicalHashtagPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
+import { LinkEditor } from "./LinkEditor";
 
 export type RichTextEditorProps = {
   placeholder?: string;
@@ -22,12 +23,22 @@ export type RichTextEditorProps = {
 export const RichTextEditor = (props: RichTextEditorProps) => {
   const { placeholder } = props;
 
+  const [isLinkEditMode, setIsLinkEditMode] = useState(false);
+  const [floatingAnchor, setFloatingAnchor] = useState<HTMLElement>();
+
   return (
     <LexicalComposer initialConfig={RTE_INITIAL_CONFIG}>
       <div className="mx-auto w-full max-w-6xl rounded-xl bg-white p-5 text-black shadow-lg">
-        <div className="overflow-hidden rounded-md border border-gray-200">
-          <Toolbar />
-          <div className="relative">
+        <div className="relative overflow-hidden rounded-md border border-gray-200">
+          <Toolbar
+            isLinkEditMode={isLinkEditMode}
+            setIsLinkEditMode={setIsLinkEditMode}
+          />
+
+          <div
+            className="relative"
+            ref={(el) => !floatingAnchor && el && setFloatingAnchor(el)}
+          >
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary as any}
               contentEditable={
@@ -47,6 +58,15 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
             />
           </div>
 
+          <HyperlinkPlugin />
+          {floatingAnchor && (
+            <LinkEditor
+              anchorElem={floatingAnchor}
+              isLinkEditMode={isLinkEditMode}
+              setIsLinkEditMode={setIsLinkEditMode}
+            />
+          )}
+
           <KeywordPlugin
             phrases={[
               "Congratulations",
@@ -55,6 +75,7 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
               "Happy birthday",
             ]}
           />
+
           <TabIndentationPlugin />
           <HistoryPlugin />
           <ListPlugin />
