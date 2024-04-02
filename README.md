@@ -3,7 +3,7 @@
 Your comprehensive toolkit for effortless and flexible Lexical development, equipped with essential features.
 
 - Demo: [lexical-toolkit.coltisor.com](https://lexical-toolkit.coltisor.com/)
-- npm:  [www.npmjs.com/package/lexical-toolkit](https://www.npmjs.com/package/lexical-toolkit)
+- npm:  [npmjs.com/package/lexical-toolkit](https://www.npmjs.com/package/lexical-toolkit)
 
 ## Features
 
