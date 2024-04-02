@@ -16,9 +16,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "lexical-toolkit": "0.0.12",
-    "@lexical/react": "^0.13.1",
-    "lexical": "^0.13.1",
+    "lexical-toolkit": "0.0.13",
+    "@lexical/react": "^0.14.2",
+    "lexical": "^0.14.2",
     "next": "^14.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
