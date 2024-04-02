@@ -1,6 +1,6 @@
 {
   "name": "lexical-toolkit",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Your comprehensive toolset for effortless and flexible Lexical development, equipped with essential features.",
   "keywords": [
     "react",
@@ -28,7 +28,7 @@
     "typescript": "^5.4.3"
   },
   "peerDependencies": {
-    "@lexical/react": "^0.12.4",
-    "lexical": "^0.12.4"
+    "@lexical/react": "^0.14.2",
+    "lexical": "^0.14.2"
   }
 }

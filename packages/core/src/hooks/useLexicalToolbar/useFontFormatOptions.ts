@@ -1,8 +1,6 @@
 import { $patchStyleText } from "@lexical/selection";
 import {
   $getSelection,
-  $isRangeSelection,
-  DEPRECATED_$isGridSelection,
   LexicalEditor,
 } from "lexical";
 import { useCallback } from "react";
@@ -43,17 +41,14 @@ export const useFontFormatOptions = (params: UseFontFormatOptionsParams) => {
     (option: string) => {
       editor.update(() => {
         const selection = $getSelection();
-        if (
-          $isRangeSelection(selection) ||
-          DEPRECATED_$isGridSelection(selection)
-        ) {
+        if (selection !== null) {
           $patchStyleText(selection, {
             [style]: option,
           });
         }
       });
     },
-    [editor, style]
+    [editor, style],
   );
 
   return (

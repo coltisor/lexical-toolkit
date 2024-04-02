@@ -14,7 +14,7 @@ import {
   $isParentElementRTL,
   $patchStyleText,
 } from "@lexical/selection";
-import { $isTableNode } from "@lexical/table";
+import {$isTableNode, $isTableSelection} from '@lexical/table';
 import {
   $findMatchingParent,
   $getNearestBlockElementAncestorOrThrow,
@@ -33,7 +33,6 @@ import {
   CAN_UNDO_COMMAND,
   COMMAND_PRIORITY_CRITICAL,
   COMMAND_PRIORITY_NORMAL,
-  DEPRECATED_$isGridSelection,
   ElementFormatType,
   FORMAT_TEXT_COMMAND,
   KEY_MODIFIER_COMMAND,
@@ -73,7 +72,7 @@ function getCodeLanguageOptions(): [string, string][] {
   const options: [string, string][] = [];
 
   for (const [lang, friendlyName] of Object.entries(
-    CODE_LANGUAGE_FRIENDLY_NAME_MAP
+    CODE_LANGUAGE_FRIENDLY_NAME_MAP,
   )) {
     options.push([lang, friendlyName]);
   }
@@ -98,7 +97,7 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
   const [rootType, setRootType] =
     useState<keyof typeof rootTypeToRootName>("root");
   const [selectedElementKey, setSelectedElementKey] = useState<NodeKey | null>(
-    null
+    null,
   );
 
   const [isEditable, setIsEditable] = useState(() => editor.isEditable());
@@ -171,7 +170,7 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
         if ($isListNode(element)) {
           const parentList = $getNearestNodeOfType<ListNode>(
             anchorNode,
-            ListNode
+            ListNode,
           );
           const type = parentList
             ? parentList.getListType()
@@ -188,7 +187,7 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
             const language =
               element.getLanguage() as keyof typeof CODE_LANGUAGE_MAP;
             setCodeLanguage(
-              language ? CODE_LANGUAGE_MAP[language] || language : ""
+              language ? CODE_LANGUAGE_MAP[language] || language : "",
             );
             return;
           }
@@ -196,25 +195,25 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
       }
       // Handle buttons
       setFontSize(
-        $getSelectionStyleValueForProperty(selection, "font-size", "15px")
+        $getSelectionStyleValueForProperty(selection, "font-size", "15px"),
       );
       setFontColor(
-        $getSelectionStyleValueForProperty(selection, "color", "var(--n700)")
+        $getSelectionStyleValueForProperty(selection, "color", "var(--n700)"),
       );
       setBgColor(
         $getSelectionStyleValueForProperty(
           selection,
           "background-color",
-          "var(--n000)"
-        )
+          "var(--n000)",
+        ),
       );
       setFontFamily(
-        $getSelectionStyleValueForProperty(selection, "font-family", "Arial")
+        $getSelectionStyleValueForProperty(selection, "font-family", "Arial"),
       );
       setElementFormat(
         ($isElementNode(node)
           ? node.getFormatType()
-          : parent?.getFormatType()) || "left"
+          : parent?.getFormatType()) || "left",
       );
     }
   }, [activeEditor]);
@@ -227,7 +226,7 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
         setActiveEditor(newEditor);
         return false;
       },
-      COMMAND_PRIORITY_CRITICAL
+      COMMAND_PRIORITY_CRITICAL,
     );
   }, [editor, $updateToolbar]);
 
@@ -247,7 +246,7 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
           setCanUndo(payload);
           return false;
         },
-        COMMAND_PRIORITY_CRITICAL
+        COMMAND_PRIORITY_CRITICAL,
       ),
       activeEditor.registerCommand<boolean>(
         CAN_REDO_COMMAND,
@@ -255,8 +254,8 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
           setCanRedo(payload);
           return false;
         },
-        COMMAND_PRIORITY_CRITICAL
-      )
+        COMMAND_PRIORITY_CRITICAL,
+      ),
     );
   }, [$updateToolbar, activeEditor, editor]);
 
@@ -272,12 +271,12 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
 
           return activeEditor.dispatchCommand(
             TOGGLE_LINK_COMMAND,
-            urlInitialValue
+            urlInitialValue,
           );
         }
         return false;
       },
-      COMMAND_PRIORITY_NORMAL
+      COMMAND_PRIORITY_NORMAL,
     );
   }, [activeEditor, isLink]);
 
@@ -285,21 +284,18 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
     (styles: Record<string, string>) => {
       activeEditor.update(() => {
         const selection = $getSelection();
-        if (
-          $isRangeSelection(selection) ||
-          DEPRECATED_$isGridSelection(selection)
-        ) {
+        if (selection !== null) {
           $patchStyleText(selection, styles);
         }
       });
     },
-    [activeEditor]
+    [activeEditor],
   );
 
   const clearFormatting = useCallback(() => {
     activeEditor.update(() => {
       const selection = $getSelection();
-      if ($isRangeSelection(selection)) {
+      if ($isRangeSelection(selection) || $isTableSelection(selection)) {
         const anchor = selection.anchor;
         const focus = selection.focus;
         const nodes = selection.getNodes();
@@ -312,24 +308,27 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
           // We split the first and last node by the selection
           // So that we don't format unselected text inside those nodes
           if ($isTextNode(node)) {
+            // Use a separate variable to ensure TS does not lose the refinement
+            let textNode = node;
             if (idx === 0 && anchor.offset !== 0) {
-              node = node.splitText(anchor.offset)[1] || node;
+              textNode = textNode.splitText(anchor.offset)[1] || textNode;
             }
             if (idx === nodes.length - 1) {
-              node = node.splitText(focus.offset)[0] || node;
+              textNode = textNode.splitText(focus.offset)[0] || textNode;
             }
 
-            if (node.__style !== "") {
-              node.setStyle("");
+            if (textNode.__style !== '') {
+              textNode.setStyle('');
             }
-            if (node.__format !== 0) {
-              node.setFormat(0);
-              $getNearestBlockElementAncestorOrThrow(node).setFormat("");
+            if (textNode.__format !== 0) {
+              textNode.setFormat(0);
+              $getNearestBlockElementAncestorOrThrow(textNode).setFormat('');
             }
+            node = textNode;
           } else if ($isHeadingNode(node) || $isQuoteNode(node)) {
             node.replace($createParagraphNode(), true);
           } else if ($isDecoratorBlockNode(node)) {
-            node.setFormat("");
+            node.setFormat('');
           }
         });
       }
@@ -340,14 +339,14 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
     (value: string) => {
       applyStyleText({ color: value });
     },
-    [applyStyleText]
+    [applyStyleText],
   );
 
   const onBgColorSelect = useCallback(
     (value: string) => {
       applyStyleText({ "background-color": value });
     },
-    [applyStyleText]
+    [applyStyleText],
   );
 
   const insertLink = useCallback(() => {
@@ -369,7 +368,7 @@ export function useLexicalToolbar(params: UseLexicalToolbarParams) {
         }
       });
     },
-    [activeEditor, selectedElementKey]
+    [activeEditor, selectedElementKey],
   );
 
   return {
