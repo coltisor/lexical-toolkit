@@ -1,14 +1,8 @@
 {
-  "name": "@lexical-toolkit/playground",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/coltisor/lexical-toolkit",
-    "directory": "packages/playground"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
